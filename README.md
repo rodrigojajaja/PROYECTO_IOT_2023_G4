@@ -4,4 +4,5 @@ Se presenta en el Siguiente Repositorio los códigos y pasos a seguir para la im
 El proyecto consta de una implementación combinada, se usa como MC Central, al ESP8266 que, envía data de 3 diferentes sensores por medio de PLatformIO (Una plataforma colaborativa), usando un Framework de Arduino. 
 Además de ello, se muestra los cambios y documentación interna acerca de los pasos a realizar para la conexión con el cliente MQTT de la nube pública de AWS.
 
+![1](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/f5e830f7-8967-447a-83ab-77075eea5770)
 
