@@ -1,4 +1,4 @@
-# PROYECTO_IOT_2023_G4
+# PROYECTO_IOT_2023_G4 ya me deja
 ## Universidad Rafael Landívar 2023
 ## Proyecto Final - Internet de las Cosas: "Implemento Deportivo medidor de magnitudes físicas" 
 Se presenta en el Siguiente Repositorio los códigos y pasos a seguir para la implementación del proyecto respecto al curso de Internet de las Cosas del segundo ciclo del 2023. 
