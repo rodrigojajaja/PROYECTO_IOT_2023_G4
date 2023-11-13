@@ -106,9 +106,68 @@ Cada que se tengan ubicadas ya las librerías, se realiza click en 'Add to Proje
 
 ![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/762e8e96-93f9-4f6f-8931-41003d85e560)
 
-Ahora existirá la facilidad de conectar con el cliente MQTT de la nube a elección y 
+Ahora existirá la facilidad de conectar con el cliente MQTT de la nube a elección y se podrán empezar a conectar los objetos directamente para hacer las operaciones siguientes necesarias.
+
+Se debe de tener un acercamiento primero a la conexión en la nube, específicamente tener un conocimiento del servicio de AWS IoT Core, mismo que servirá como base para el proyecto. 
+Se realizarán ciertos pasos para conectar nuestros sensores o dispositivos.
+
+1.	Creación de un Objeto
+
+Se debe de crear un objeto o "Thing" en la consola de AWS para que su información pueda ser manejada por este medio. 
+
+Paso 01. Se accede al servicio de IoT Core en el apartado Todos los Dispositivos > Objetos
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/5b445cfb-4275-4291-beb5-ed18bc8286dd)
+
+Paso 02. Hacer Click en Crear objetos > Crear un único objeto > Siguiente
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/7c8009fc-1875-486c-88bc-831398d9f2f8)
+
+Paso 03. Ingresar los datos necesarios (Nombre y seleccionar "Sin Sombra")
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/ccf4db59-7976-42b4-9e5a-2e674edfe2d6)
+
+
+Paso 04. Hacer Click en "Siguiente" > "Auto generar un nuevo certificado" > Siguiente
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/3af2c942-70bd-4aab-9346-4e6c61baa553)
+
+Paso 05. En el apartado de políticas o "Policies", asignar una política existente o crear una; en este caso se creará una nueva. Hacer click en Crear política para abrirla en otra ventana y darle un nombre. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/e1ae0332-96a1-428b-8321-dc550ed47402)
+
+Paso 06. En el apartado de permisos, asignar todos los permisos con el caracter "*" en los recuadros de acciones y recursos, seguidamente hacer click en "Crear"
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/681ee633-5f38-4ce4-b3fc-68f2b145968b)
+
+
+Paso 06. Relacionar la política creada con el "Objeto" creado y dar click en "Create Thing"
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/bb24d3ba-2dc7-4c08-8256-a9b7e5ea8d7e)
+
+
+
+
+
+
+2.	Creación de Políticas
+
+
+
+3.	Certificados
+
+
 
 ### 3. Configuraciones Iniciales en la Nube AWS
+
+1.	Integración de códigos
+
+   
+2. 	Conexión con el Cliente de MQTT
+
+
+3.  Envío y recibimiento de datos
+
+   
+
+
+
 ### 4. Gestión de la conexión entre el circuito y la Nube
 ### 5. Gestión del almacenamiento de la Data
 ### 6. Bot de Telegram
