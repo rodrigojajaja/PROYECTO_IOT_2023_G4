@@ -108,6 +108,8 @@ Cada que se tengan ubicadas ya las librerías, se realiza click en 'Add to Proje
 
 Ahora existirá la facilidad de conectar con el cliente MQTT de la nube a elección y se podrán empezar a conectar los objetos directamente para hacer las operaciones siguientes necesarias.
 
+### 3. Configuraciones Iniciales en la Nube AWS
+
 Se debe de tener un acercamiento primero a la conexión en la nube, específicamente tener un conocimiento del servicio de AWS IoT Core, mismo que servirá como base para el proyecto. 
 Se realizarán ciertos pasos para conectar nuestros sensores o dispositivos.
 
@@ -116,17 +118,24 @@ Se realizarán ciertos pasos para conectar nuestros sensores o dispositivos.
 Se debe de crear un objeto o "Thing" en la consola de AWS para que su información pueda ser manejada por este medio. 
 
 Paso 01. Se accede al servicio de IoT Core en el apartado Todos los Dispositivos > Objetos
+
 ![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/5b445cfb-4275-4291-beb5-ed18bc8286dd)
 
 Paso 02. Hacer Click en Crear objetos > Crear un único objeto > Siguiente
+
 ![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/7c8009fc-1875-486c-88bc-831398d9f2f8)
 
 Paso 03. Ingresar los datos necesarios (Nombre y seleccionar "Sin Sombra")
+
 ![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/ccf4db59-7976-42b4-9e5a-2e674edfe2d6)
 
 
 Paso 04. Hacer Click en "Siguiente" > "Auto generar un nuevo certificado" > Siguiente
+
 ![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/3af2c942-70bd-4aab-9346-4e6c61baa553)
+
+
+2.	Creación de Políticas
 
 Paso 05. En el apartado de políticas o "Policies", asignar una política existente o crear una; en este caso se creará una nueva. Hacer click en Crear política para abrirla en otra ventana y darle un nombre. 
 
@@ -142,34 +151,170 @@ Paso 06. Relacionar la política creada con el "Objeto" creado y dar click en "C
 ![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/bb24d3ba-2dc7-4c08-8256-a9b7e5ea8d7e)
 
 
-
-
-
-
-2.	Creación de Políticas
-
-
-
 3.	Certificados
 
+Paso 07. Descargar los siguientes certificados: 
+   a. Certificado de dispositivo
+   b. Certificado de clave pública
+   c. certificado de clave privada
+   d. Certificado CA1
+
+No olvidar hacerlo desde este momento ya que posteriormente no se podrán volver a descargar y será necesario recrear todo el proceso. 
+
+Seguidamente hacer click en "Done"
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/63caf758-4c38-45ef-a8d0-cc33d5e8c592)
 
 
-### 3. Configuraciones Iniciales en la Nube AWS
+El objeto ha sido creado!
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/2739f604-26b1-41bb-8899-df90a637bf77)
+
+
+Con este paso hecho, se puede pasar directamente a la conexión de cada uno de los sensores. 
+
+### 4. Gestión de la conexión entre el circuito y la Nube
+
+Dadas las primeras configuraciones en la nube pública, se debe dirigir al código proporcionado en 'main.cpp' y en 'secrets.'
+En el codigo de 'main', se colocan las instrucciones tanto para leer los datos como para poder observar su envío por medio del puerto serial. Sse debe configurar el tema de envío hacia el cliente de MQTT en AWS, con un nombre genérico. Además acá se deben de agregar cuantos códigos sean necesarios para cada sensor a utilizar. Para el caso de este proyecto, se considera el código de lectura y envío de 2 sensores, leyendo 3 magnitudes: altura, presión, temperatura y pulso cardíaco. 
+
 
 1.	Integración de códigos
 
+###### Archivo 'main.ino'.
+Contiene la lógica empleada para establecer la comunicación WiFi, conectarse al broker MQTT, e interactuar por puerto serial con el Arduino
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/c0853b0a-71c4-466f-8df0-2bfca13da8d3)
+
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/66838b5e-495e-4efb-b4ca-b84bfb90f207)
+
+###### Archivo 'secrets.h'.
+Este código contiene las partes necesarias para la conexión con AWS. Acá se deben agregar los certificados de dispositivo, privado y el CA1. Estos certificados fueron los descargados en el paso 07 de la sección anterior. Se deben de abrir por medio de un bloc de notas dando click derecho en "Abrir con > Bloc de notas", para copiarlos y pegarlos en los espacios indicados
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/f7feda8f-3a45-4e47-8c6b-a63aaba7542f)
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/731ab0b9-5409-4e70-949b-351430b42ce8)
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/3f4665a3-aaea-4366-bc76-252be0d7ee28)
+
+Recordar que se deben de indicar los puertos a donde se esté conectando la tarjeta, la mera tarjeta, los temas de MQTT, las redes WIFI con sus contraseñas para el envío, la zona horaria en la que se encuentre desplegado el dispositivo y sobre todo el end point de AWS. Hallado en la siguiente ubicación: 
+
+a. Settings > Device data endpoint. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/9878697b-1ccc-4b49-ba0d-039431c6f141)
+
+
    
-2. 	Conexión con el Cliente de MQTT
+2. Conexión con el Cliente de MQTT
+
+A partir del código cargado en el ESP8266 se debe de verificar como en el puerto serie se espera con la conexión, saliendo efectiva si hemos realizado los pasos a cabalidad. Podemos ver el siguiente mensaje en el puerto serie: 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/d54c5142-e7a8-4ede-a591-e3d0849b4343)
+
+Y si nos vamos a la consola del clente de MQTT y asignamos el tema que habíamos definido en la sección anterior, tal y como muestra la imagen: 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/e0244e2d-07a0-4b63-a982-fd9c8dbbb340)
+
+Vamos a poder directamente ya recibir data en nuestro cliente. 
+
+3. Envío y recibimiento de datos
+
+Luego de asignar el tema en el cliente de MQTT podremos ver los siguientes ítems, llegando ante nuestros ojos demostrando que hemos hecho correctamente la conexión. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/c927554a-5845-494a-96a0-7412ffe1c5f8)
+
+Estos datos sólamente están llegando, pero hace falta la creación de una base de datos en donde los guardaremos para posteriormente exportarlos a nuetro bot de Telegram, realizado en secciones posteriores. 
 
 
-3.  Envío y recibimiento de datos
-
-   
-
-
-
-### 4. Gestión de la conexión entre el circuito y la Nube
 ### 5. Gestión del almacenamiento de la Data
+
+Posterior al envío y recibimiento de la data, se desea guardar en algún lugar, por lo que es necesaria la creación de una función lambda, que toma los valores del cliente y los almacena en una base de datos no relacional proveída por el servicio DynamoDB.
+
+Se lleva a cabo, realizando los siguientes pasos: 
+
+Paso 01. Como primer paso se busca el servicio DynamoDB y se busca la sección de Tables y 
+el botón Create Table, para crear una nueva tabla. En este paso se define el nombre 
+de la tabla y la Partition Key por medio de una función lambda y una Sort key para 
+poder enviar como parte del mensaje MQTT definida por el sensor a utilizar.
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/5269a2e3-c683-4858-a26c-3e56c7232f16)
+
+Paso 02. En la sección Table Setings del cuadro Create Table se selecciona la opción Default 
+Settings para dejar los valores por defecto, y luego crear la tabla en el botón Create 
+Table.
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/f0e0850c-e270-473e-abf6-70ea16457d22)
+
+Paso 03. Al haber creado la tabla, lo que prosigue es crear una función Lambda buscando el 
+servicio Lambda el cual proporciona funciones serverless dentro de AWS. En la 
+sección Functions se debe de seleccionar la opción de Create Function para poder 
+definir el nombre de la función, el runtime que se utilizará y seleccionar la opción 
+Create Function.
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/02a0c8e7-1252-4944-8279-a075d7fe2faa)
+
+Paso 04. Al haber creado la función, hay que dirigirse al apartado de configuración de la función lambda. En el apartado de Permissions se encuentra el link de rol asociado a la 
+función. Al hacer click sobre el link nos llevará a la política de permisos asociada a la 
+función
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/466918cf-e5c6-4a0a-b564-ecde191d5bd9)
+
+Paso 05. Seleccionar la opción edit para modificar la política asignada a la función. Aquí se 
+deberá agregar el permiso necesario para escribir sobre la tabla creada al inicio del 
+laboratorio. Para esto deberá de obtener el identificador ARN de la tabla. En el servicio 
+DynamoDB hay que dirigirse a la tabla creada anteriormente y expandir la sección 
+Additional Information y copiar el ARN de la tabla.
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/95d7ff06-f636-42fa-9d50-46a921308919)
+
+
+Paso 06. Hacer click en "Edit" y se procede a agregar el ARN de la tabla en la configuración de la política 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/56701cd5-c517-4e07-a5e3-123afe943e79)
+
+Paso 07: Dentro del apartado de funciones de Lambda, seleccionamos la función creada y 
+luego nos dirigimos a la sección de Code Source. Este código lo que realiza es la 
+creación de ciertas variables al activarse el evento descrito en la función lambda. Se 
+crea un ID para que pueda ser unido a las variables creadas a partir de la Partition 
+Key que en mi caso sería la de temperatura
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/0b4dc077-2b39-4e95-98d2-cedbadc9c629)
+
+Paso 08: Teniendo definido el código, se procede a seleccionar la flecha al lado de text, en la configuración de un evento para poder recibir los datos en la tabla por medio de MQTT
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/141a3eca-9c0d-47e7-81b0-cd2d9b93b27e)
+
+Paso 09: Se crea un nuevo evento JSON llamado MQTT-input el cual contiene las entradas de 
+la tabla las cuales se envían al activarse el evento de la función lambda
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/4ec903fa-8dfd-423f-8b33-6a728bba144c)
+
+
+Paso 10: Para que la función lambda pueda funcionar debe de tener los accesos necesarios 
+para realizar cambios en la tabla, por lo que hay que buscar el servicio IAM, en el apartado de roles hay que crear un rol para una función lambda y al darle click en next, hay que agregarle los permisos respectivos los cuales se tienen que buscar y lleva por nombre AmazonDynamoDBFullAccess. Por último este rol se asigna a la  función lambda para poder concederle los permisos mencionados
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/b9148348-9a96-4196-b4df-1cdfd9d2d746)
+
+Paso 11: Se procede a seleccionar la opción Test para enviar el mensaje por medio del evento 
+de la función lambda. Dándole un nombre y datos de ejemplo a almacenar. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/dbe5b479-4628-40c8-9e84-173e877b400c)
+
+Paso 12: Si el código no presenta errores y los permisos de escritura en el rol de la función 
+fueron asignados correctamente deberá observar el código 200 de la línea de estado de la respuesta HTTP de la API utilizada por el servicio lambda de AWS
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/8981f0ea-70fe-43fc-93d0-4ed2287b5466)
+
+Paso 13: Al ubicar la tabla en el servicio DynamoDB, en la sección de Explore Items, se 
+observará el registro creado desde la función lambda en la tabla
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/3481695a-09eb-472b-b4bc-eedd601200f0)
+
+
+Esto se realizó con la finalidad de comenzar a explorar la tabla, pero como se observó, el envío fue manual y es necesario que el almacenamiento sea dinámico, por lo que es necesaria la implementación de una herramienta denominada "Desencadenadores", que permitirán automatizar esos procesos. Se presenta a continuacíón el procedimiento para llevarlo a cabo. 
+
+
+
+
 ### 6. Bot de Telegram
 ### 7. Manejo del envío de Data de la Nube al bot de Telegram
 ### 8. Integración final
