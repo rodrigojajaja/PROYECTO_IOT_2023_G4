@@ -312,8 +312,43 @@ observará el registro creado desde la función lambda en la tabla
 
 Esto se realizó con la finalidad de comenzar a explorar la tabla, pero como se observó, el envío fue manual y es necesario que el almacenamiento sea dinámico, por lo que es necesaria la implementación de una herramienta denominada "Desencadenadores", que permitirán automatizar esos procesos. Se presenta a continuacíón el procedimiento para llevarlo a cabo. 
 
+Paso 14: En la consola AWS dirigirse a la sección de servicios para poder ingresar a as funciones lambda. (Services > Lambda)
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/c0322a1f-5eff-4def-be0a-2bebcf2e0940)
+
+Paso 15: Se selecciona la función lambda creada anteriormente. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/87bc3ce3-f074-4f81-85db-b6b3b43be51e)
+
+PASO 16: Dentro de la función lambda se selecciona la opción para agregar un desencadenador haciendo click en "Add trigger > AWS IoT"
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/1ea0ccf0-da17-46ac-8432-8de245b20ac8)
+
+Paso 17: Luego de haber sleccionado la opción AWS IoT, se configura el desencadenador como 
+Custom IoT Rule y Create a New Rule. En el apartado de Rule Name se coloca el nombre que se le asignará a la regla, en Rule Query Statement se creará un statement SQL para que cada vez que se tenga un registro de entrada en IoT Core se produzca la ejecución de la función. . La instancia SQL se ve de la siguiente manera: 
+
+SELECT*FROM’<TEMA_MQTT>’ en este caso se modificó y el tema será esp32/pub
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/3d681e65-09cf-4c0f-a465-d5a70419fcad)
 
 
+Paso 18: Se recomienda dividir la pantalla para tener una mejor visibilidad de las ventanas que se deben de abrir ahora. 
+
+Se debe de abrir los servicios de DynamoDB para observar los datos provenientes del sensor escritos en la tabla y Se debe de abrir el cliente de MQTT. 
+
+Paso 19: Se procede a conectar el módulo IoT. Como ejemplo se toma la combinación del Esp8266 y el sensor de temperatura y humedad. Recordando que se debe de suscribir al tema previsto. Esto es lo realizado en el el apartado 2 de la sección 3. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/460312ad-8989-4696-90fe-efd445f9bfc9)
+
+Paso 20. Se ve cómo estos registros son directamente almacenados directamente cuando son recibidos en el cliente MQTT. Siendo escritos en la tabla creada a partir de los permisos necesarios y de la definición de la función lambda. 
+
+Se puede observar que se le asignó un Timestamp con formato Date-Time a cada uno de ellos en forma de string, que permitirá reconocer cada una de las entradas en la tabla. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/ae00bc95-eafa-4427-9020-011de58efdfc)
+
+Para la realización de estos pasos, se tomó en cuenta solamente un sensor. Y para más sensores a utilizar solamente se deben de agregar al código principal los que se deseen ya que el procedimiento será el mismo. Recordar que a cada sensor se le trata diferente pero el proceso de envío y recibimiento de data es el mismo, solamente se debe ajustar a gusto. 
+
+Posterior a estos pasos, se desea la vista y envio a nuestro bot de telegram, que se consideró como objetivo final del proyecto, mostrar los datos y dar recomendaciones. Por lo que en las próximas secciones se estará realizando este proceso. 
 
 ### 6. Bot de Telegram
 ### 7. Manejo del envío de Data de la Nube al bot de Telegram
