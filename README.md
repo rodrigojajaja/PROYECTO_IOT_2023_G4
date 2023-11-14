@@ -1,4 +1,4 @@
-# PROYECTO_IOT_2023_G4 ya me deja
+# PROYECTO_IOT_2023_G4
 ## Universidad Rafael Landívar 2023
 ## Proyecto Final - Internet de las Cosas: "Implemento Deportivo medidor de magnitudes físicas" 
 Se presenta en el Siguiente Repositorio los códigos y pasos a seguir para la implementación del proyecto respecto al curso de Internet de las Cosas del segundo ciclo del 2023. 
@@ -7,9 +7,9 @@ El proyecto consta de una implementación combinada, se usa como MC Central, al 
 
 
 # Descripción general
-Este proyecto se enfoca en crear un implemento deportivo o "Correa deportiva" que se coloca cruzada alrededor del pecho de un atleta. Su propósito es medir las principales variables físicas que se experimentan durante la práctica deportiva, proporcionando información relevante sobre el desempeño del deportista.
+Este proyecto se enfoca en crear un implemento deportivo o "Correa deportiva" que se coloca cruzada alrededor del pecho de un atleta. Su propósito es medir las principales variables físicas que se experimentan durante la práctica deportiva, proporcionando información relevante sobre el entorno en el que se desenvuelve el atleta.
 
-Se miden las magnitudes respecto a la humedad, a la presión y a la frecuencia cardíaca que está experimentando el atelta en el momento. Siendo la data recogida por medio del microcontrolador ESP23 8266, que se encarga de mandar la data por medio de WiFi hacia una base de datos DynamoDB en la nube pública de AWS, recibida por medio del cliente MQTT. Esta data luego es tomada por una función lambda que funge como parte del microservicio que se encarga en conjunto por medio del servicio API GATEWAY de enviar solicitudes http hacia un bot de telegram, indicando finalmente los parámetros solicitados para que el atleta pueda observarlos con recomendaciones de relajación, hidratación o parada de rutina. Según el tiempo que personalmente se decida entrenar. 
+Se miden las magnitudes respecto a la humedad, presión, altura y frecuencia cardíaca que está experimentando el atelta en el momento. Siendo la data recogida por medio del microcontrolador ESP23 8266, que se encarga de mandar la data por medio de WiFi hacia una base de datos DynamoDB en la nube pública de AWS, recibida por medio del cliente MQTT. Esta data luego es tomada por una función lambda que funge como parte del microservicio que se encarga en conjunto por medio del servicio API GATEWAY de enviar solicitudes http hacia un bot de telegram, indicando finalmente los parámetros solicitados para que el atleta pueda observarlos con recomendaciones de relajación, hidratación o parada de rutina. Según el tiempo que personalmente se decida entrenar. 
 
 
 # Materiales necesarios
@@ -351,6 +351,81 @@ Para la realización de estos pasos, se tomó en cuenta solamente un sensor. Y p
 Posterior a estos pasos, se desea la vista y envio a nuestro bot de telegram, que se consideró como objetivo final del proyecto, mostrar los datos y dar recomendaciones. Por lo que en las próximas secciones se estará realizando este proceso. 
 
 ### 6. Bot de Telegram
+
+Para fines del proyecto, se deseó presentar los resultados en un bot de Telegram, dada su practicidad en el uso de su API pública. Otras alternativas como ThingSpeak, Tableau o hasta incluso Power BI son alternativas también, pero en este caso se deseó implementarlo por medio de un bot de Telegram; mismo que se logró implementar por medio de las siguientes fases: 
+
+1. Creación y Ajustes iniciales del Bot
+
+Paso 01. Descargar la aplicación oficial de Telegram Desktop de su sitio oficial: https://desktop.telegram.org/
+
+Paso 02. Instalar la aplicación y en el buscador, ubicar el chat 'BotFather' que posea el ícono de verificado
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/a3072b72-851e-4543-9915-c74353823138)
+
+Paso 03. Ingresar al chat y teclear el comando /start > /newbot
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/57131d36-87bc-400f-8cb2-91d958dd80a6)
+
+
+Paso 04. Darle un nombre y un usuario al bot. 
+
+Paso 05. Cuando BotFather acepte nuestros nombres y usuarios, nos proporcionará un 'Token', el cual es un número que nos permitirá hacer conexiones desde otras plataformas a Telegram. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/74451a91-9c2f-4c7f-b6b6-a89cf43eb603)
+
+Podemos acceder por medio del primer enlace que nos brinda, directamente a nuestro bot; y podremos ver esto al momento en el que ingresamos
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/c5bb1ec9-69c4-4690-9958-47dd4442baa6)
+
+
+
+2. Programación del Bot
+
+A partir de haber creado ya nuestro bot, es momento de programar sus entradas y salidas principales. Se toma en cuenta que debe de ser utilizada la versión de Python 3.10 ya que es la que acepta la librería 'telebot', necesaria para hacer esta conexión. por lo que debemos importarla en el IDE en el que estemos trabajando. 
+
+Se considera que el codigo debe de responder a las solicitudes que le llegan desde los comandos mandados por el usuario. Por lo que por medio de la siguiente instrucción, cambiando cada uno de los comandos debe de procesar diferente solicitud: 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/57a7bfce-5b90-4c0b-ac6b-45579a4aaeb5)
+
+##### Configuración 
+
+1. Clonar este repositorio.
+2. Instalar las dependencias usando el siguiente comado: 'pip install -r requirements.txt' en la terminal de tu IDE de preferencia
+3. Crea un bot en Telegram a través de BotFather y obtén tu token y tu chatID
+4. Reemplaza 'tu_token_aca' en el fichero 'main.py' con tu token. 
+5. Ejecuta el bot utilizando 'python main.py'
+
+##### Funcionalidades: 
+El bot creado, posee diferentes configuraciones, lsa cuales se declaran a continuación:
+
+1. Responde a los siguientes comandos: 
+    1. '/start' - Para iniciar el bot
+    2. '/data' - Manda un resumen de las 4 magnitudes
+    3. '/temp' - Muestra tu temperatura actual
+    4. '/alt' - Muestra tu altitud actual
+    5. '/pres' - Muestra la presión del ambiente actual
+    6. '/bpm' - Muestra la frecuencia de tu ritmo cardíaco
+
+Repite además cualquier otro mensaje que se le envíe como forma de expresar que no le entiende. 
+
+La data es en tiempo real con un delay de toma de información de 5 segundos. 
+
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/2a225a37-4a1d-4f33-b500-16fb42f63c92)
+
+Posterior a ello, podemos dirigirnos a nuestro bot de telegram para saber que lo hemos programado bien, aún no muestra información ya que no se ha realizado una integración. 
+Podemos observar el funcionamiento en primera instancia ingresando al bot: https://t.me/SensoriamBot
+
+Imagen de referencia: 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/32af85d2-7022-4dfd-8d33-2ecc403a0ac9)
+
+
+3. Conexión con AWS
+
+El siguiente paso es realizar los procesos de conexión por medio de AWS en los que se implementarán triggers para activar la base de datos que permitirán conocer la data solicitada. Los pasos se muestran a continuación: 
+
+
 ### 7. Manejo del envío de Data de la Nube al bot de Telegram
 ### 8. Integración final
 ### 9. Presentación y funcionamiento final
