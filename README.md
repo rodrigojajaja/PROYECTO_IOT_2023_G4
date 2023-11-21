@@ -58,6 +58,7 @@ El proyecto consta de diferentes fases, preferiblemente desarrolladas en el orde
 7. Manejo del envío de Data de la Nube al bot de Telegram
 8. Integración final
 9. Presentación y funcionamiento final
+10. Recomendaciones
 
 
 
@@ -423,12 +424,52 @@ Imagen de referencia:
 
 3. Conexión con AWS
 
-El siguiente paso es realizar los procesos de conexión por medio de AWS en los que se implementarán triggers para activar la base de datos que permitirán conocer la data solicitada. Los pasos se muestran a continuación: 
-
+El siguiente paso es realizar los procesos de conexión por medio de AWS en los que se implementarán triggers para activar la base de datos que permitirán conocer la data solicitada. Los pasos se muestran a continuación
 
 ### 7. Manejo del envío de Data de la Nube al bot de Telegram
+
+Como tal, se utilizaron 3 triggers de AWS para que la función lambda pudiera: Un API Gateway, un trigger de DynamoDB y un trigger de AWS IoT Core. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/74db9860-9ffe-4b6f-9f2c-aa6f3261890b)
+
+Además se le agregó una layer 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/00a316d9-9c38-44c5-8259-4349b68e363f)
+
+Por medio de esto, se muestra como al enviar datos del ESP32 Dev Module, al cliente MQTT, se enviaban directamente a la tabla de DynamoDB y posteriormente por medio de la función lambda, directo al envío hacia el bot de telegram, ubicado por medio de su Token. 
+
+
 ### 8. Integración final
+
+Se diseñó una cajita como archivo stl que servía como estuche para los circuitos integrados. Se muestran a continuación los acercamientos a la construcción del equipo a vender. 
+
+Medidas iniciales
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/2315de4d-4f20-4f90-9bba-4158d8929b1c)
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/6ae248f6-4ff3-4ca5-954e-e9b0e90111d0)
+
+
+Diseños en AutoDesk
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/dfca87ac-09cc-463d-8714-0bfb4d63ce52)
+
+Diseño impreso en plástico para impresión 3D
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/ca285c8b-03ee-4feb-814a-265722068c59)
+
+
+Además, se coloca una correa que puede ser ajustable a cualquier talla.
+
+Se ejemplifica con un compañero cómo debe de ser utilizado el implemento 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/0ab6b526-9de3-4296-b9e1-62e02bc340ae)
+
+
+
+
 ### 9. Presentación y funcionamiento final
+### 1. Recomendaciones
 
 
 
