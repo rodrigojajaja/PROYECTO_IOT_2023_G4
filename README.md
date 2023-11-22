@@ -469,10 +469,19 @@ Se ejemplifica con un compañero cómo debe de ser utilizado el implemento
 
 
 ### 9. Presentación y funcionamiento final
-### 1. Recomendaciones
+
+Se presentaron algunos inconvenientes en donde el sensor de pulso no presentó los resultados esperados pero se espera mejore en las siguientes actualizaciones del proyecto antes de entrar a un estudio de mercado y poder ser directamente comercializada. 
+
+Se presenta una fotografía del funcionamiento, omitiendo el sensor de pulso cardíaco. 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/4eaacf00-8bf0-4e34-bfe2-f629b0f796cf)
 
 
+### 10. Recomendaciones
 
+1. Se recomienda a los siguientes estudiantes que deseen seguir con el proyecto, realizarlo con más tiempo y tener una gestión del proyecto junto con una gestión de las comunicaciones mucho más estable.
+2. Se recomienda realizar el diseño del estuche a conveniencia y dejar un poco más de medidas para que los sensores puedan estar en un espacio un poco más estable.
+3. Se recomienda a los estudiantes que posean un presupuesto mayor para cubrir gastos extras que surgen en el camino. 
 
 
 
