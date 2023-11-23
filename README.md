@@ -380,34 +380,24 @@ Podemos acceder por medio del primer enlace que nos brinda, directamente a nuest
 
 
 
+
 2. Programación del Bot
 
 A partir de haber creado ya nuestro bot, es momento de programar sus entradas y salidas principales. Se toma en cuenta que debe de ser utilizada la versión de Python 3.10 ya que es la que acepta la librería 'telebot', necesaria para hacer esta conexión. por lo que debemos importarla en el IDE en el que estemos trabajando. 
 
-Se considera que el codigo debe de responder a las solicitudes que le llegan desde los comandos mandados por el usuario. Por lo que por medio de la siguiente instrucción, cambiando cada uno de los comandos debe de procesar diferente solicitud: 
 
-![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/57a7bfce-5b90-4c0b-ac6b-45579a4aaeb5)
+Solicitar nuestro propio chat que será al que nos enviará la información, por medio del siguiente chat que podemos usar en telegram, ya que acá es donde recibiremos la información, debido a que el bot que creamos mandará las solicitudes y nos las enviará por medio de este chat propio: 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/879f272c-c65e-4def-a6e4-aa953e857558)
+
 
 ##### Configuración 
-
-1. Clonar este repositorio.
-2. Instalar las dependencias usando el siguiente comado: 'pip install -r requirements.txt' en la terminal de tu IDE de preferencia
-3. Crea un bot en Telegram a través de BotFather y obtén tu token y tu chatID
-4. Reemplaza 'tu_token_aca' en el fichero 'main.py' con tu token. 
-5. Ejecuta el bot utilizando 'python main.py'
+-Acceder a la función lambda y copiar el código. Utilizar capas de AWS para las librerías que no puedan ser instaladas. Para mayor información sobre este tema, consultar el siguiente recurso público: https://youtu.be/iluJFDUh-ck?si=qZyHJfEu4-NC3jCz 
 
 ##### Funcionalidades: 
 El bot creado, posee diferentes configuraciones, lsa cuales se declaran a continuación:
 
-1. Responde a los siguientes comandos: 
-    1. '/start' - Para iniciar el bot
-    2. '/data' - Manda un resumen de las 4 magnitudes
-    3. '/temp' - Muestra tu temperatura actual
-    4. '/alt' - Muestra tu altitud actual
-    5. '/pres' - Muestra la presión del ambiente actual
-    6. '/bpm' - Muestra la frecuencia de tu ritmo cardíaco
-
-Repite además cualquier otro mensaje que se le envíe como forma de expresar que no le entiende. 
+Responde a un umbral de temperatura y manda una alerta 
 
 La data es en tiempo real con un delay de toma de información de 5 segundos. 
 
@@ -475,6 +465,11 @@ Se presentaron algunos inconvenientes en donde el sensor de pulso no presentó l
 Se presenta una fotografía del funcionamiento, omitiendo el sensor de pulso cardíaco. 
 
 ![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/4eaacf00-8bf0-4e34-bfe2-f629b0f796cf)
+
+
+Se presenta un diagrama de flujo de la operación de la solución para fines ilustrativos y de instrucción: 
+
+![image](https://github.com/rodrigojajaja/PROYECTO_IOT_2023_G4/assets/110866741/edd2cc23-67b8-4a57-9340-39ab9761fa0d)
 
 
 ### 10. Recomendaciones
